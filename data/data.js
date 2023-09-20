@@ -13,13 +13,12 @@ var data = [
   }
 ]
 
-exports.findAll = function () {
-  return data
-}
 
 exports.checkBooking = function (newdata) {
   var room = newdata.room
-  var datetime =  new Date( newdata.datetime)
+  var dateNewData =  new Date(newdata.datetime).toLocaleDateString()
+  var timeNewData =  new Date(newdata.datetime).toLocaleTimeString()
+
   var title = newdata.title
   var username = newdata.username
   
@@ -27,11 +26,14 @@ exports.checkBooking = function (newdata) {
     return {code:202, message: 'Incomplete information',booking: newdata}
   }
   for (var i = 0; i < data.length; i++) {
-    var checkDatetime = new Date(data[i].datetime)
-     console.log(checkDatetime.getTime() + datetime.getTime());
-    if (data[i].room === room && (checkDatetime.getDate() === datetime.getDate() && datetime.getTime() === checkDatetime.getTime())) return {code:201, message: 'Booking Fail', booking: data[i]}
+    var checkDate = new Date(data[i].datetime).toLocaleDateString()
+    var checkTime = new Date(data[i].datetime).toLocaleTimeString()
+
+    if (data[i].room === room && checkDate === dateNewData && checkTime === timeNewData){
+      return {code:201, message: 'Booking Fail', booking: data[i]}
+    }
   }
-  return {code:200, message: '---------Success---------',booking: newdata}
+  return {code:200, message: 'Success',booking: newdata}
 }
 
 exports.add = function (newdata) {

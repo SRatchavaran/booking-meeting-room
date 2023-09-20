@@ -66,7 +66,7 @@
                 <input type="text" id="title" name = "title" class="subtitle2TextStyle" style="width: 30%;" placeholder="หัวข้อการประชุม">
             </div> 
             <p style="padding-bottom: 0px;"></p>
-            <button id="btn" class="bottonEnable" onclick="textDisable()">Reserve</button>
+            <button id="btn" class="bottonEnable">Reserve</button>
         </form>
     </div>
 </body>
@@ -77,21 +77,10 @@
         dateDisplay.defaultValue = getCurrentDateAndTime();
 
     };
-    function textDisable(){
-        console.log(document.getElementById("rooms").value)
-        console.log(document.getElementById("datetime").value)
-        console.log(document.getElementById("username").value)
-        console.log(document.getElementById("title").value)
-    } 
-        // Function to get the current date and time
+
+    // Function to get the current date and time
     function getCurrentDateAndTime() {
-        const dateTime = new Date();
-        var year = dateTime.getFullYear()
-        var month = checkDatetime( dateTime.getMonth() +1)
-        var date = checkDatetime( dateTime.getDate())
-        var hour = checkDatetime( dateTime.getHours())
-        var minute = checkDatetime( dateTime.getMinutes())
-        return  year + '-' +  month + '-' + date + 'T' + hour + ':' +minute;
+        var newformat = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0];
     }
     function checkDatetime(number){
         return number > 9 ? number : '0'+ number;
